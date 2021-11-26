@@ -72,7 +72,9 @@ public class Styles {
         String itemRegularSize = driver.findElement(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[2]/s"))
                 .getCssValue("font-size");
         //Sizes
-        Assert.assertTrue(regularSize.compareTo(discountSize) < 0);
+        Double regSize = Double.parseDouble(regularSize.substring(0,regularSize.length() - 2));
+        Double disSize = Double.parseDouble(discountSize.substring(0,discountSize.length() - 2));
+        Assert.assertTrue(disSize > regSize);
         String itemDiscountWeight = driver.findElement(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[2]/strong"))
                 .getCssValue("font-weight");
         String itemDiscountColor = driver.findElement(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[2]/strong"))
@@ -82,7 +84,9 @@ public class Styles {
         Assert.assertTrue(Integer.parseInt(itemDiscountWeight) > 500);
         String itemDiscountSize = driver.findElement(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[2]/strong"))
                 .getCssValue("font-size");
-        Assert.assertTrue(itemRegularSize.compareTo(itemDiscountSize) < 0);
+        Double itemRegSize = Double.parseDouble(itemRegularSize.substring(0,itemRegularSize.length() - 2));
+        Double itemDisSize = Double.parseDouble(itemDiscountSize.substring(0,itemDiscountSize.length() - 2));
+        Assert.assertTrue(itemDisSize > itemRegSize);
         //Check that some prices are red
         Assert.assertTrue(itemDiscountColor.endsWith("0, 0, 1)"));
         Assert.assertTrue(discountColor.endsWith("0, 0, 1)"));

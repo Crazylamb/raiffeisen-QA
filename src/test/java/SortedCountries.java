@@ -32,7 +32,6 @@ public class SortedCountries {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         //wait.until(titleIs("Title"));
-        System.out.println("Success");
         loggedin = true;
     }
 
@@ -45,17 +44,29 @@ public class SortedCountries {
         ArrayList<String> sortedNames = new ArrayList<String>();
         ArrayList<String> acr = new ArrayList<String>();
         for (WebElement country: countries){
-            names.add(country.findElements(By.tagName("td")).get(4).getText());
-            sortedNames.add(country.findElements(By.tagName("td")).get(4).getText());
-            if (Integer.parseInt(country.findElements(By.tagName("td")).get(5).getText()) > 0){
-                acr.add(country.findElements(By.tagName("td")).get(3).getText());
+            List<WebElement> data = country.findElements(By.tagName("td"));
+            String countryName = data.get(4).getText();
+            names.add(countryName);
+            sortedNames.add(countryName);
+            if (Integer.parseInt(data.get(5).getText()) > 0){
+                acr.add(data.get(3).getText());
             }
         }
         Collections.sort(sortedNames);
         Assert.assertEquals(names, sortedNames);
         for (String str : acr){
-            System.out.println(str);
-            checkCountries("http://localhost/litecart/admin/?app=countries&doc=edit_country&country_code=" + str);
+            driver.get("http://localhost/litecart/admin/?app=countries&doc=edit_country&country_code=" + str);
+            List<WebElement> els = driver.findElements(By.xpath("//*[@id=\"table-zones\"]/tbody/tr"));
+            names = new ArrayList<String>();
+            sortedNames = new ArrayList<String>();
+            for (int i = 1; i < els.size() - 1; i++) {
+                List<WebElement> data = els.get(i).findElements(By.tagName("td"));
+                String name = data.get(2).getText();
+                names.add(name);
+                sortedNames.add(name);
+            }
+            Collections.sort(sortedNames);
+            Assert.assertEquals(names, sortedNames);
         }
     }
 
@@ -67,8 +78,10 @@ public class SortedCountries {
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> sortedNames = new ArrayList<String>();
         for (WebElement country: countries){
-            names.add(country.findElements(By.tagName("td")).get(2).getText());
-            sortedNames.add(country.findElements(By.tagName("td")).get(2).getText());
+            List<WebElement> data = country.findElements(By.tagName("td"));
+            String name = data.get(2).getText();
+            names.add(name);
+            sortedNames.add(name);
         }
         Collections.sort(sortedNames);
         Assert.assertEquals(names, sortedNames);

@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -67,11 +68,9 @@ public class AddProduct {
 
         WebElement saveButton = driver.findElement(By.xpath("//*[@id=\"content\"]/form/p/span/button[1]"));
         saveButton.click();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        String text = driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[4]/td[3]/a")).getText();
+        Assert.assertEquals("Big Duck", text);
     }
 
     @After

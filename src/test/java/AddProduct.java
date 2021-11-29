@@ -32,45 +32,45 @@ public class AddProduct {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        driver.get("http://localhost/litecart/admin/?app=catalog&doc=catalog");
-        driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/a[2]")).click();
-        driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[1]/td/label[1]/input")).click();
-        WebElement name = driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[2]/td/span/input"));
+        driver.get("http://localhost/litecart/admin/?category_id=0&app=catalog&doc=edit_product");
+        driver.findElement(By.linkText("General")).click();
+        WebElement name = driver.findElement(By.cssSelector("input[name=\"name[en]\""));
         name.sendKeys("Big Duck");
-        WebElement code = driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[3]/td/input"));
+        WebElement code = driver.findElement(By.cssSelector("input[name=\"code\""));
         code.sendKeys("42");
-        driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[7]/td/div/table/tbody/tr[4]/td[1]/input")).click();
-        WebElement picture = driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[9]/td/table/tbody/tr[1]/td/input"));
+        driver.findElement(By.cssSelector("input[value=\"1-3\"")).click();
+        WebElement picture = driver.findElement(By.cssSelector("input[name=\"new_images[]\""));
         picture.sendKeys(System.getProperty("user.dir") + "/src/test/java/duck.png");
-        WebElement dateFrom = driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[10]/td/input"));
+        WebElement dateFrom = driver.findElement(By.cssSelector("input[name=\"date_valid_from\""));
         dateFrom.sendKeys("26.11.2021");
-        WebElement dateTo = driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[11]/td/input"));
+        WebElement dateTo = driver.findElement(By.cssSelector("input[name=\"date_valid_to\""));
         dateTo.sendKeys("26.11.2022");
-        driver.findElement(By.xpath("//*[@id=\"content\"]/form/div/ul/li[2]")).click();
+        driver.findElement(By.linkText("Information")).click();
 
         //information
-        WebElement shortDesc = driver.findElement(By.xpath("//*[@id=\"tab-information\"]/table/tbody/tr[4]/td/span/input"));
+        WebElement shortDesc = driver.findElement(By.cssSelector("input[name=\"short_description[en]\""));
         shortDesc.sendKeys("A special duck");
-        WebElement longDesc = driver.findElement(By.xpath("//*[@id=\"tab-information\"]/table/tbody/tr[5]/td/span/div/div[2]"));
+        WebElement longDesc = driver.findElement(By.cssSelector("div[class=\"trumbowyg-editor\""));
         longDesc.sendKeys("It's a special duck for you!");
-        WebElement head = driver.findElement(By.xpath("//*[@id=\"tab-information\"]/table/tbody/tr[6]/td/span/input"));
+        WebElement head = driver.findElement(By.cssSelector("input[name=\"head_title[en]\""));
         head.sendKeys("SuperDuck");
-        WebElement metaDesc = driver.findElement(By.xpath("//*[@id=\"tab-information\"]/table/tbody/tr[7]/td/span/input"));
+        WebElement metaDesc = driver.findElement(By.cssSelector("input[name=\"meta_description[en]\""));
         metaDesc.sendKeys("ULTRACOOL DUCK");
-        driver.findElement(By.xpath("//*[@id=\"content\"]/form/div/ul/li[4]")).click();
+        driver.findElement(By.linkText("Prices")).click();
 
         //Price
-        WebElement price = driver.findElement(By.xpath("//*[@id=\"tab-prices\"]/table[3]/tbody/tr[2]/td[1]/span/input"));
+        WebElement price = driver.findElement(By.cssSelector("input[name=\"prices[USD]\""));
         price.sendKeys("10");
-        WebElement currency = driver.findElement(By.xpath("//*[@id=\"tab-prices\"]/table[1]/tbody/tr/td/select"));
+        WebElement currency = driver.findElement(By.cssSelector("select[name=\"purchase_price_currency_code\""));
         Select select = new Select(currency);
         select.selectByIndex(1);
 
-        WebElement saveButton = driver.findElement(By.xpath("//*[@id=\"content\"]/form/p/span/button[1]"));
+        WebElement saveButton = driver.findElement(By.cssSelector("button[name=\"save\""));
         saveButton.click();
 
-        String text = driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[4]/td[3]/a")).getText();
-        Assert.assertEquals("Big Duck", text);
+        // JUNIT 4 не имеет assertNotThrows, в идеале здесь нужно использовать его
+        // Но он доступен только в JUNIT 5
+        driver.findElement(By.linkText("Big Duck"));
     }
 
     @After

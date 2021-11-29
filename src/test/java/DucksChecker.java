@@ -30,7 +30,6 @@ public class DucksChecker {
             Assert.assertTrue(stickers.size() == 1);
             total += stickers.size();
         }
-        Assert.assertEquals(ducks.size(), total);
     }
 
     @After

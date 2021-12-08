@@ -26,7 +26,7 @@ public class DucksChecker {
         int total = 0;
         List<WebElement> ducks = driver.findElements(By.xpath(".//ul[@class='listing-wrapper products']//li"));
         for (WebElement el:ducks){
-            List<WebElement> stickers = el.findElements(By.cssSelector("div[class*=\"sticker\"]"));
+            List<WebElement> stickers = el.findElements(By.cssSelector("div.sticker"));
             Assert.assertTrue(stickers.size() == 1);
             total += stickers.size();
         }

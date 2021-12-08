@@ -29,7 +29,7 @@ public class CartFunctioning {
 
     private void shopping(String times){
         driver.get("http://localhost/litecart/en/");
-        driver.findElement(By.xpath("//*[@id=\"box-most-popular\"]/div/ul/li[1]/a[1]/div[1]/img")).click();
+        driver.findElement(By.cssSelector("#box-most-popular > div > ul > li:nth-child(1)")).click();
         wait.until(urlContains("rubber-ducks"));
         //Если выбрана желтая уточка
         if (driver.findElements(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[5]/form/table/tbody/tr[1]/td/select"))
@@ -38,7 +38,7 @@ public class CartFunctioning {
             Select select = new Select(size);
             select.selectByIndex(1);
         }
-        driver.findElement(By.xpath("//*[@id=\"box-product\"]/div[2]/div[2]/div[5]/form/table/tbody/tr/td/button")).click();
+        driver.findElement(By.cssSelector("button[name=add_cart_product]")).click();
         WebElement cart = driver.findElement(By.xpath("//*[@id=\"cart\"]/a[2]/span[1]"));
         wait.until(textToBePresentInElement(cart, times));
     }

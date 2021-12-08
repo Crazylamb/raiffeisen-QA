@@ -18,12 +18,14 @@ public class AddProduct {
     private WebDriver driver;
     private WebDriverWait wait;
     private Actions actions;
+    private String productName;
 
     @Before
     public void Before(){
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
         actions = new Actions(driver);
+        productName = Integer.toString(LocalDateTime.now().hashCode());
     }
 
     @Test
@@ -35,7 +37,7 @@ public class AddProduct {
         driver.get("http://localhost/litecart/admin/?category_id=0&app=catalog&doc=edit_product");
         driver.findElement(By.linkText("General")).click();
         WebElement name = driver.findElement(By.cssSelector("input[name=\"name[en]\""));
-        name.sendKeys("Big Duck");
+        name.sendKeys(productName);
         WebElement code = driver.findElement(By.cssSelector("input[name=\"code\""));
         code.sendKeys("42");
         driver.findElement(By.cssSelector("input[value=\"1-3\"")).click();
@@ -70,7 +72,7 @@ public class AddProduct {
 
         // JUNIT 4 не имеет assertNotThrows, в идеале здесь нужно использовать его
         // Но он доступен только в JUNIT 5
-        driver.findElement(By.linkText("Big Duck"));
+        driver.findElement(By.linkText(productName));
     }
 
     @After

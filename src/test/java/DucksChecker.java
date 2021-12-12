@@ -24,7 +24,7 @@ public class DucksChecker {
     public void EveryDuckHasASticker(){
         driver.get("http://localhost/litecart/");
         int total = 0;
-        List<WebElement> ducks = driver.findElements(By.xpath(".//ul[@class='listing-wrapper products']//li"));
+        List<WebElement> ducks = driver.findElements(By.cssSelector(".product"));
         for (WebElement el:ducks){
             List<WebElement> stickers = el.findElements(By.cssSelector("div.sticker"));
             Assert.assertTrue(stickers.size() == 1);

@@ -31,6 +31,7 @@ public class CartPage {
         while (productsNum != 0){
             wait.until(ExpectedConditions.elementToBeClickable(removeButtons.get(0))).click();
             productsNum--;
+            removeButtons.remove(0);
         }
     }
 

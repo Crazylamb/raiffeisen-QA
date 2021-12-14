@@ -1,6 +1,7 @@
 package task19.PageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,10 +33,14 @@ public class CartPage {
     public void deleteAllProducts(){
         productsNum = removeButtons.size();
         while (productsNum != 0){
-            //driver.findElement(By.cssSelector("li[class=shortcut]")).click();
             //removeButtons = driver.findElements(By.cssSelector("button[name=remove_cart_item]"));
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[name=remove_cart_item]"))).click();
-            productsNum--;
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[name=remove_cart_item]"))).click();
+                productsNum--;
+            }
+            catch (StaleElementReferenceException e){
+
+            }
         }
     }
 
